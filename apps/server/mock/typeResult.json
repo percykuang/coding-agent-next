@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "/types/Novel.ts",
+      "code": "/**\n * NovelStatus\n * 小说阅读状态\n */\nexport type NovelStatus = 'unread' | 'reading' | 'completed' | 'paused';\n\n/**\n * Novel\n * 小说实体，包含小说基本信息和阅读状态\n */\nexport interface Novel {\n  /** 唯一标识 */\n  id: string;\n  /** 小说标题 */\n  title: string;\n  /** 作者 */\n  author: string;\n  /** 封面图片URL */\n  coverImage: string;\n  /** 小说描述 */\n  description: string;\n  /** 文件路径 */\n  filePath: string;\n  /** 总页数 */\n  totalPages: number;\n  /** 当前阅读页数 */\n  currentPage: number;\n  /** 最后阅读时间 (ISO Date String) */\n  lastReadAt: string;\n  /** 创建时间 (ISO Date String) */\n  createdAt: string;\n  /** 更新时间 (ISO Date String) */\n  updatedAt: string;\n  /** 阅读状态 */\n  status: NovelStatus;\n  /** 阅读进度百分比 */\n  progressPercentage: number;\n}",
+      "modelId": "Novel"
+    },
+    {
+      "path": "/types/Category.ts",
+      "code": "/**\n * Category\n * 小说分类标签\n */\nexport interface Category {\n  /** id */\n  id: string;\n  /** name */\n  name: string;\n  /** color */\n  color: string;\n  /** description */\n  description: string;\n}",
+      "modelId": "Category"
+    },
+    {
+      "path": "/types/ReadingNote.ts",
+      "code": "import { Novel } from \"./Novel\";\n\n/**\n * ReadingNote\n * 阅读笔记\n */\nexport interface ReadingNote {\n  /** 唯一标识 */\n  id: string;\n  /** 关联的小说ID */\n  novelId: string;\n  /** 页码 */\n  pageNumber: number;\n  /** 笔记内容 */\n  content: string;\n  /** 创建时间 (ISO Date String) */\n  createdAt: string;\n  /** 更新时间 (ISO Date String) */\n  updatedAt: string;\n}",
+      "modelId": "ReadingNote"
+    },
+    {
+      "path": "/types/ReadingSession.ts",
+      "code": "import { Novel } from \"./Novel\";\n\n/**\n * ReadingSession\n * 阅读会话记录\n */\nexport interface ReadingSession {\n  /** 唯一标识 */\n  id: string;\n  /** 关联的小说ID */\n  novelId: string;\n  /** 开始页码 */\n  startPage: number;\n  /** 结束页码 */\n  endPage: number;\n  /** 阅读时长（单位：秒） */\n  duration: number;\n  /** 创建时间 (ISO Date String) */\n  createdAt: string;\n}",
+      "modelId": "ReadingSession"
+    },
+    {
+      "path": "/types/Bookmark.ts",
+      "code": "import { Novel } from \"./Novel\";\n\n/**\n * Bookmark\n * 书签\n */\nexport interface Bookmark {\n  /** 唯一标识 */\n  id: string;\n  /** 关联的小说ID */\n  novelId: string;\n  /** 页码 */\n  pageNumber: number;\n  /** 描述 */\n  description: string;\n  /** 创建时间 (ISO Date String) */\n  createdAt: string;\n}",
+      "modelId": "Bookmark"
+    }
+  ]
+}

@@ -1,0 +1,730 @@
+{
+  "components": [
+    {
+      "componentId": "NovelSearchInput",
+      "originalId": "SearchInput",
+      "type": "Input",
+      "description": "搜索小说组件，支持实时搜索和搜索建议",
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "description": "输入框占位符文本",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "当前搜索关键词",
+          "required": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "自定义CSS类名",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onSearch",
+          "description": "用户执行搜索时触发",
+          "parameters": [
+            {
+              "name": "keyword",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "onChange",
+          "description": "搜索关键词变化时触发",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Input"
+    },
+    {
+      "componentId": "AddNovelButton",
+      "originalId": "AddNovelButton",
+      "type": "Button",
+      "description": "添加新小说按钮，触发添加小说表单",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'outline' | 'secondary' | 'ghost' | 'link'",
+          "description": "按钮变体样式",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'default' | 'sm' | 'lg' | 'icon'",
+          "description": "按钮尺寸",
+          "required": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "自定义CSS类名",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onClick",
+          "description": "点击按钮时触发添加小说操作",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Button"
+    },
+    {
+      "componentId": "NovelListTable",
+      "originalId": "NovelTable",
+      "type": "Table",
+      "description": "小说列表表格，展示所有收藏的小说，支持查看详情、编辑和删除",
+      "props": [
+        {
+          "name": "novels",
+          "type": "Novel[]",
+          "description": "小说数据列表",
+          "required": true
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "数据加载状态",
+          "required": false
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "description": "空数据时显示的提示信息",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onViewDetail",
+          "description": "点击查看小说详情",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        },
+        {
+          "name": "onEdit",
+          "description": "点击编辑小说",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        },
+        {
+          "name": "onDelete",
+          "description": "点击删除小说",
+          "parameters": [
+            {
+              "name": "novelId",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "onStartReading",
+          "description": "点击开始阅读",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Table"
+    },
+    {
+      "componentId": "NovelFilterPanel",
+      "originalId": "FilterPanel",
+      "type": "Card",
+      "description": "小说筛选面板，按分类、状态等条件筛选小说",
+      "props": [
+        {
+          "name": "categories",
+          "type": "Category[]",
+          "description": "可用的分类列表",
+          "required": true
+        },
+        {
+          "name": "selectedCategory",
+          "type": "string | null",
+          "description": "当前选中的分类ID",
+          "required": false
+        },
+        {
+          "name": "selectedStatus",
+          "type": "string | null",
+          "description": "当前选中的阅读状态",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onCategoryChange",
+          "description": "分类筛选条件变化",
+          "parameters": [
+            {
+              "name": "categoryId",
+              "type": "string | null"
+            }
+          ]
+        },
+        {
+          "name": "onStatusChange",
+          "description": "状态筛选条件变化",
+          "parameters": [
+            {
+              "name": "status",
+              "type": "string | null"
+            }
+          ]
+        },
+        {
+          "name": "onReset",
+          "description": "重置所有筛选条件",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["Category", "Novel"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "NovelInfoCard",
+      "originalId": "NovelInfoCard",
+      "type": "Card",
+      "description": "小说信息展示卡片，显示小说基本信息",
+      "props": [
+        {
+          "name": "novel",
+          "type": "Novel",
+          "description": "小说数据",
+          "required": true
+        },
+        {
+          "name": "showActions",
+          "type": "boolean",
+          "description": "是否显示操作按钮",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onEdit",
+          "description": "点击编辑小说信息",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "ReadingProgressCard",
+      "originalId": "ReadingProgressCard",
+      "type": "Card",
+      "description": "阅读进度卡片，显示阅读进度和进度控制",
+      "props": [
+        {
+          "name": "novel",
+          "type": "Novel",
+          "description": "小说数据，包含阅读进度信息",
+          "required": true
+        },
+        {
+          "name": "showStartButton",
+          "type": "boolean",
+          "description": "是否显示开始阅读按钮",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onStartReading",
+          "description": "点击开始阅读",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        },
+        {
+          "name": "onProgressChange",
+          "description": "阅读进度变化",
+          "parameters": [
+            {
+              "name": "pageNumber",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "ReadingNotesList",
+      "originalId": "RecentNotes",
+      "type": "Card",
+      "description": "阅读笔记列表，展示小说的相关笔记",
+      "props": [
+        {
+          "name": "notes",
+          "type": "ReadingNote[]",
+          "description": "笔记列表",
+          "required": true
+        },
+        {
+          "name": "novelId",
+          "type": "string",
+          "description": "关联的小说ID",
+          "required": true
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "description": "最大显示数量",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onAddNote",
+          "description": "点击添加新笔记",
+          "parameters": [
+            {
+              "name": "novelId",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "onEditNote",
+          "description": "点击编辑笔记",
+          "parameters": [
+            {
+              "name": "note",
+              "type": "ReadingNote"
+            }
+          ]
+        },
+        {
+          "name": "onDeleteNote",
+          "description": "点击删除笔记",
+          "parameters": [
+            {
+              "name": "noteId",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["ReadingNote"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "BookmarksList",
+      "originalId": "BookmarksList",
+      "type": "Card",
+      "description": "书签列表，展示小说的书签",
+      "props": [
+        {
+          "name": "bookmarks",
+          "type": "Bookmark[]",
+          "description": "书签列表",
+          "required": true
+        },
+        {
+          "name": "novelId",
+          "type": "string",
+          "description": "关联的小说ID",
+          "required": true
+        }
+      ],
+      "events": [
+        {
+          "name": "onAddBookmark",
+          "description": "点击添加新书签",
+          "parameters": [
+            {
+              "name": "novelId",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "onDeleteBookmark",
+          "description": "点击删除书签",
+          "parameters": [
+            {
+              "name": "bookmarkId",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "onNavigateToBookmark",
+          "description": "点击跳转到书签位置",
+          "parameters": [
+            {
+              "name": "bookmark",
+              "type": "Bookmark"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Bookmark"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "NovelForm",
+      "originalId": "NovelFormCard",
+      "type": "Form",
+      "description": "小说信息表单，用于添加或编辑小说",
+      "props": [
+        {
+          "name": "novel",
+          "type": "Partial<Novel> | null",
+          "description": "编辑时的小说数据，新增时为null",
+          "required": false
+        },
+        {
+          "name": "categories",
+          "type": "Category[]",
+          "description": "可用的分类列表",
+          "required": true
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "表单提交加载状态",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onSubmit",
+          "description": "表单提交",
+          "parameters": [
+            {
+              "name": "novelData",
+              "type": "Partial<Novel>"
+            }
+          ]
+        },
+        {
+          "name": "onCancel",
+          "description": "取消表单操作",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["Novel", "Category"],
+      "shadcnComponent": "Form"
+    },
+    {
+      "componentId": "ReadingNoteForm",
+      "originalId": "NoteFormCard",
+      "type": "Form",
+      "description": "阅读笔记表单，用于添加或编辑阅读笔记",
+      "props": [
+        {
+          "name": "note",
+          "type": "Partial<ReadingNote> | null",
+          "description": "编辑时的笔记数据，新增时为null",
+          "required": false
+        },
+        {
+          "name": "novelId",
+          "type": "string",
+          "description": "关联的小说ID",
+          "required": true
+        },
+        {
+          "name": "maxPage",
+          "type": "number",
+          "description": "小说的最大页码，用于页码验证",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "表单提交加载状态",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onSubmit",
+          "description": "表单提交",
+          "parameters": [
+            {
+              "name": "noteData",
+              "type": "Partial<ReadingNote>"
+            }
+          ]
+        },
+        {
+          "name": "onCancel",
+          "description": "取消表单操作",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["ReadingNote"],
+      "shadcnComponent": "Form"
+    },
+    {
+      "componentId": "ReadingToolbar",
+      "originalId": "ReadingToolbar",
+      "type": "Toolbar",
+      "description": "阅读工具栏，提供阅读控制功能",
+      "props": [
+        {
+          "name": "novel",
+          "type": "Novel",
+          "description": "当前阅读的小说",
+          "required": true
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "description": "当前阅读页码",
+          "required": true
+        }
+      ],
+      "events": [
+        {
+          "name": "onSaveProgress",
+          "description": "保存阅读进度",
+          "parameters": [
+            {
+              "name": "pageNumber",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "onAddNote",
+          "description": "添加阅读笔记",
+          "parameters": [
+            {
+              "name": "pageNumber",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "onPrevPage",
+          "description": "跳转到上一页",
+          "parameters": []
+        },
+        {
+          "name": "onNextPage",
+          "description": "跳转到下一页",
+          "parameters": []
+        },
+        {
+          "name": "onSettingsOpen",
+          "description": "打开阅读设置",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Toolbar"
+    },
+    {
+      "componentId": "ReadingProgressSlider",
+      "originalId": "ProgressSlider",
+      "type": "Slider",
+      "description": "阅读进度滑块，控制阅读进度",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "当前进度值（页码）",
+          "required": true
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "description": "最小页码",
+          "required": false
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "最大页码（小说总页数）",
+          "required": true
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "description": "步长",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onValueChange",
+          "description": "进度值变化",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "onValueCommit",
+          "description": "进度值确认（用户释放滑块）",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "number"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Slider"
+    },
+    {
+      "componentId": "ReadingStatsCard",
+      "originalId": "ReadingStats",
+      "type": "Card",
+      "description": "阅读统计卡片，展示阅读统计数据",
+      "props": [
+        {
+          "name": "readingSessions",
+          "type": "ReadingSession[]",
+          "description": "阅读会话数据",
+          "required": true
+        },
+        {
+          "name": "totalReadingTime",
+          "type": "number",
+          "description": "总阅读时长（分钟）",
+          "required": false
+        },
+        {
+          "name": "totalPagesRead",
+          "type": "number",
+          "description": "总阅读页数",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onViewDetails",
+          "description": "点击查看详细统计",
+          "parameters": []
+        }
+      ],
+      "dataDependencies": ["ReadingSession"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "RecentNovelsCard",
+      "originalId": "RecentNovels",
+      "type": "Card",
+      "description": "最近阅读小说卡片，展示最近阅读的小说列表",
+      "props": [
+        {
+          "name": "novels",
+          "type": "Novel[]",
+          "description": "最近阅读的小说列表",
+          "required": true
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "description": "最大显示数量",
+          "required": false
+        }
+      ],
+      "events": [
+        {
+          "name": "onViewDetail",
+          "description": "点击查看小说详情",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        },
+        {
+          "name": "onStartReading",
+          "description": "点击继续阅读",
+          "parameters": [
+            {
+              "name": "novel",
+              "type": "Novel"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Novel"],
+      "shadcnComponent": "Card"
+    },
+    {
+      "componentId": "CategoryOverviewCard",
+      "originalId": "CategoryOverview",
+      "type": "Card",
+      "description": "分类概览卡片，展示小说分类统计",
+      "props": [
+        {
+          "name": "categories",
+          "type": "Category[]",
+          "description": "分类列表",
+          "required": true
+        },
+        {
+          "name": "novelCounts",
+          "type": "Record<string, number>",
+          "description": "各分类的小说数量",
+          "required": true
+        }
+      ],
+      "events": [
+        {
+          "name": "onCategoryClick",
+          "description": "点击分类进行筛选",
+          "parameters": [
+            {
+              "name": "categoryId",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "dataDependencies": ["Category", "Novel"],
+      "shadcnComponent": "Card"
+    }
+  ]
+}

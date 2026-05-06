@@ -1,0 +1,48 @@
+{
+  "inputType": "figma_with_prompt",
+  "designParsed": {
+    "pages": [
+      {
+        "name": "Home",
+        "route": "/",
+        "frames": []
+      },
+      {
+        "name": "Product",
+        "route": "/product",
+        "frames": []
+      }
+    ],
+    "sharedComponents": [
+      {
+        "name": "Button",
+        "instances": 12,
+        "figmaNodeId": "node-123"
+      },
+      {
+        "name": "Card",
+        "instances": 8,
+        "figmaNodeId": "node-456"
+      }
+    ],
+    "designTokens": {
+      "colors": {
+        "primary": "#1890ff",
+        "secondary": "#52c41a",
+        "background": "#ffffff",
+        "text": "#000000"
+      },
+      "fonts": {
+        "heading": "Inter Bold",
+        "body": "Inter Regular"
+      },
+      "spacing": {
+        "sm": "8px",
+        "md": "16px",
+        "lg": "24px",
+        "xl": "32px"
+      }
+    }
+  },
+  "intentMode": "enhanced"
+}

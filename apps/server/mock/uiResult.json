@@ -1,0 +1,596 @@
+{
+  "pages": [
+    {
+      "pageId": "LibraryDashboard",
+      "route": "/",
+      "description": "小说库概览页面，展示所有小说收藏和阅读统计",
+      "layout": "dashboard-shell",
+      "sections": [
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "导航菜单",
+          "components": [
+            {
+              "id": "MainSidebar",
+              "type": "Sidebar",
+              "label": "主侧边栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "NavMenu",
+              "type": "NavigationMenu",
+              "label": "导航菜单",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels", "viewStatistics"]
+            }
+          ]
+        },
+        {
+          "sectionId": "header",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "顶部导航栏",
+          "components": [
+            {
+              "id": "MainNavbar",
+              "type": "Navbar",
+              "label": "顶部导航栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "SearchInput",
+              "type": "Input",
+              "label": "搜索小说",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["searchNovels"]
+            },
+            {
+              "id": "UserAvatar",
+              "type": "Avatar",
+              "label": "用户头像",
+              "bindDataModel": "",
+              "bindBehavior": []
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "dashboard",
+          "layout": "grid",
+          "title": "仪表盘内容区",
+          "components": [
+            {
+              "id": "WelcomeCard",
+              "type": "Card",
+              "label": "欢迎卡片",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "ReadingStats",
+              "type": "Card",
+              "label": "阅读统计",
+              "bindDataModel": "ReadingSession",
+              "bindBehavior": ["viewStatistics"]
+            },
+            {
+              "id": "RecentNovels",
+              "type": "Card",
+              "label": "最近阅读",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["browseNovels", "viewNovelDetail"]
+            },
+            {
+              "id": "QuickActions",
+              "type": "Card",
+              "label": "快速操作",
+              "bindDataModel": "",
+              "bindBehavior": ["addNovel", "browseNovels"]
+            },
+            {
+              "id": "ReadingProgressChart",
+              "type": "Chart",
+              "label": "阅读进度图表",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["viewStatistics"]
+            },
+            {
+              "id": "CategoryOverview",
+              "type": "Card",
+              "label": "分类概览",
+              "bindDataModel": "Category",
+              "bindBehavior": ["filterNovels"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "NovelList",
+      "route": "/novels",
+      "description": "小说列表页面，展示所有收藏的小说，支持筛选和搜索",
+      "layout": "dashboard-shell",
+      "sections": [
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "导航菜单",
+          "components": [
+            {
+              "id": "MainSidebar",
+              "type": "Sidebar",
+              "label": "主侧边栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "NavMenu",
+              "type": "NavigationMenu",
+              "label": "导航菜单",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels", "viewStatistics"]
+            }
+          ]
+        },
+        {
+          "sectionId": "header",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "顶部导航栏",
+          "components": [
+            {
+              "id": "MainNavbar",
+              "type": "Navbar",
+              "label": "顶部导航栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "PageTitle",
+              "type": "Label",
+              "label": "小说收藏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "SearchInput",
+              "type": "Input",
+              "label": "搜索小说",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["searchNovels"]
+            },
+            {
+              "id": "AddNovelButton",
+              "type": "Button",
+              "label": "添加小说",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["addNovel"]
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "list",
+          "layout": "flex-col",
+          "title": "小说列表",
+          "components": [
+            {
+              "id": "FilterPanel",
+              "type": "Card",
+              "label": "筛选面板",
+              "bindDataModel": "Category",
+              "bindBehavior": ["filterNovels"]
+            },
+            {
+              "id": "NovelTable",
+              "type": "Table",
+              "label": "小说列表",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["browseNovels", "viewNovelDetail", "editNovel", "deleteNovel"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "NovelDetail",
+      "route": "/novels/[id]",
+      "description": "小说详情页面，展示小说信息和阅读选项",
+      "layout": "dashboard-shell",
+      "sections": [
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "导航菜单",
+          "components": [
+            {
+              "id": "MainSidebar",
+              "type": "Sidebar",
+              "label": "主侧边栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "NavMenu",
+              "type": "NavigationMenu",
+              "label": "导航菜单",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels", "viewStatistics"]
+            }
+          ]
+        },
+        {
+          "sectionId": "header",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "顶部导航栏",
+          "components": [
+            {
+              "id": "MainNavbar",
+              "type": "Navbar",
+              "label": "顶部导航栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "Breadcrumb",
+              "type": "Breadcrumb",
+              "label": "面包屑导航",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["browseNovels"]
+            },
+            {
+              "id": "ActionButtons",
+              "type": "Toolbar",
+              "label": "操作工具栏",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["editNovel", "deleteNovel", "startReading"]
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "detail",
+          "layout": "grid",
+          "title": "小说详情",
+          "components": [
+            {
+              "id": "NovelInfoCard",
+              "type": "Card",
+              "label": "小说信息",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["editNovel"]
+            },
+            {
+              "id": "ReadingProgressCard",
+              "type": "Card",
+              "label": "阅读进度",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["startReading", "saveReadingProgress"]
+            },
+            {
+              "id": "StartReadingButton",
+              "type": "Button",
+              "label": "开始阅读",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["startReading"]
+            },
+            {
+              "id": "RecentNotes",
+              "type": "Card",
+              "label": "最近笔记",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": ["addNote", "updateNote"]
+            },
+            {
+              "id": "BookmarksList",
+              "type": "Card",
+              "label": "书签列表",
+              "bindDataModel": "Bookmark",
+              "bindBehavior": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "ReadingWorkspace",
+      "route": "/reading/[id]",
+      "description": "阅读工作台，提供小说阅读界面和阅读控制",
+      "layout": "editor-shell",
+      "sections": [
+        {
+          "sectionId": "toolbar",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "阅读工具栏",
+          "components": [
+            {
+              "id": "ReadingToolbar",
+              "type": "Toolbar",
+              "label": "阅读工具栏",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["saveReadingProgress", "addNote"]
+            },
+            {
+              "id": "ProgressSlider",
+              "type": "Slider",
+              "label": "阅读进度滑块",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["saveReadingProgress"]
+            },
+            {
+              "id": "PageIndicator",
+              "type": "Label",
+              "label": "页码指示器",
+              "bindDataModel": "Novel",
+              "bindBehavior": []
+            },
+            {
+              "id": "SettingsButton",
+              "type": "Button",
+              "label": "阅读设置",
+              "bindDataModel": "",
+              "bindBehavior": []
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "editor",
+          "layout": "single",
+          "title": "阅读内容区",
+          "components": [
+            {
+              "id": "ReadingArea",
+              "type": "ScrollArea",
+              "label": "阅读区域",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["saveReadingProgress"]
+            },
+            {
+              "id": "ReadingContent",
+              "type": "Editor",
+              "label": "小说内容",
+              "bindDataModel": "Novel",
+              "bindBehavior": []
+            }
+          ]
+        },
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "阅读侧边栏",
+          "components": [
+            {
+              "id": "NotesPanel",
+              "type": "ResizablePanel",
+              "label": "笔记面板",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": ["addNote", "updateNote"]
+            },
+            {
+              "id": "BookmarksPanel",
+              "type": "ResizablePanel",
+              "label": "书签面板",
+              "bindDataModel": "Bookmark",
+              "bindBehavior": []
+            },
+            {
+              "id": "TableOfContents",
+              "type": "ResizablePanel",
+              "label": "目录面板",
+              "bindDataModel": "Novel",
+              "bindBehavior": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "NovelForm",
+      "route": "/novels/new",
+      "description": "小说添加/编辑表单，用于管理小说收藏",
+      "layout": "dashboard-shell",
+      "sections": [
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "导航菜单",
+          "components": [
+            {
+              "id": "MainSidebar",
+              "type": "Sidebar",
+              "label": "主侧边栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "NavMenu",
+              "type": "NavigationMenu",
+              "label": "导航菜单",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels"]
+            }
+          ]
+        },
+        {
+          "sectionId": "header",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "顶部导航栏",
+          "components": [
+            {
+              "id": "MainNavbar",
+              "type": "Navbar",
+              "label": "顶部导航栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "Breadcrumb",
+              "type": "Breadcrumb",
+              "label": "面包屑导航",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["browseNovels"]
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "form",
+          "layout": "flex-col",
+          "title": "小说表单",
+          "components": [
+            {
+              "id": "NovelFormCard",
+              "type": "Card",
+              "label": "小说信息表单",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["addNovel", "editNovel"]
+            },
+            {
+              "id": "FormFields",
+              "type": "Form",
+              "label": "表单字段",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["addNovel", "editNovel"]
+            },
+            {
+              "id": "CategorySelect",
+              "type": "Select",
+              "label": "分类选择",
+              "bindDataModel": "Category",
+              "bindBehavior": []
+            },
+            {
+              "id": "SubmitButton",
+              "type": "Button",
+              "label": "保存",
+              "bindDataModel": "Novel",
+              "bindBehavior": ["addNovel", "editNovel"]
+            },
+            {
+              "id": "CancelButton",
+              "type": "Button",
+              "label": "取消",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "NoteForm",
+      "route": "/notes/new",
+      "description": "阅读笔记添加/编辑表单",
+      "layout": "dashboard-shell",
+      "sections": [
+        {
+          "sectionId": "sidebar",
+          "role": "navigation",
+          "layout": "flex-col",
+          "title": "导航菜单",
+          "components": [
+            {
+              "id": "MainSidebar",
+              "type": "Sidebar",
+              "label": "主侧边栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "NavMenu",
+              "type": "NavigationMenu",
+              "label": "导航菜单",
+              "bindDataModel": "",
+              "bindBehavior": ["browseNovels"]
+            }
+          ]
+        },
+        {
+          "sectionId": "header",
+          "role": "navigation",
+          "layout": "flex-row",
+          "title": "顶部导航栏",
+          "components": [
+            {
+              "id": "MainNavbar",
+              "type": "Navbar",
+              "label": "顶部导航栏",
+              "bindDataModel": "",
+              "bindBehavior": []
+            },
+            {
+              "id": "Breadcrumb",
+              "type": "Breadcrumb",
+              "label": "面包屑导航",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": []
+            }
+          ]
+        },
+        {
+          "sectionId": "content",
+          "role": "form",
+          "layout": "flex-col",
+          "title": "笔记表单",
+          "components": [
+            {
+              "id": "NoteFormCard",
+              "type": "Card",
+              "label": "阅读笔记表单",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": ["addNote", "updateNote"]
+            },
+            {
+              "id": "FormFields",
+              "type": "Form",
+              "label": "表单字段",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": ["addNote", "updateNote"]
+            },
+            {
+              "id": "PageNumberInput",
+              "type": "Input",
+              "label": "页码",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": []
+            },
+            {
+              "id": "ContentTextarea",
+              "type": "Textarea",
+              "label": "笔记内容",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": []
+            },
+            {
+              "id": "SubmitButton",
+              "type": "Button",
+              "label": "保存笔记",
+              "bindDataModel": "ReadingNote",
+              "bindBehavior": ["addNote", "updateNote"]
+            },
+            {
+              "id": "CancelButton",
+              "type": "Button",
+              "label": "取消",
+              "bindDataModel": "",
+              "bindBehavior": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "themeStrategy": "现代化阅读友好风格，支持浅色/深色模式切换，专注阅读体验，界面简洁直观"
+}

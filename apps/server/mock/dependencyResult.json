@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "axios": "^1.7.9",
+    "react-hook-form": "^7.55.0",
+    "zod": "^3.24.1",
+    "@hookform/resolvers": "^3.10.0",
+    "react-hot-toast": "^2.5.0",
+    "react-query": "^3.39.3"
+  },
+  "reason": "基于小说阅读管理应用的需求分析：1. 需要日期处理用于阅读时间统计（dayjs）；2. 需要HTTP请求库管理小说数据（axios）；3. 已有react-hook-form但需要表单验证（zod + @hookform/resolvers）；4. 需要用户反馈通知（react-hot-toast）；5. 需要数据状态管理（react-query）。这些库都是浏览器端兼容的，与React 18兼容，且不包含在现有模板依赖中。"
+}

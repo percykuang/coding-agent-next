@@ -1,0 +1,20 @@
+{
+  "layoutsCode": [
+    {
+      "path": "/layouts/MainLayout.tsx",
+      "content": "import { Outlet, Link } from 'react-router-dom';\nimport { Book, Search, Plus, Home } from 'lucide-react';\n\nexport default function MainLayout() {\n  return (\n    <div className='min-h-screen flex flex-col bg-gray-50'>\n      <header className='sticky top-0 z-10 bg-white border-b border-gray-200'>\n        <div className='max-w-6xl mx-auto px-6 py-4 flex items-center justify-between'>\n          <Link to='/' className='flex items-center gap-2'>\n            <Book className='h-6 w-6 text-blue-600' />\n            <span className='text-xl font-bold text-gray-900'>小说阅读管理器</span>\n          </Link>\n          <nav className='flex items-center gap-6'>\n            <Link to='/' className='text-gray-600 hover:text-gray-900 flex items-center gap-1'>\n              <Home className='h-4 w-4' />\n              首页\n            </Link>\n            <Link to='/novels' className='text-gray-600 hover:text-gray-900 flex items-center gap-1'>\n              <Book className='h-4 w-4' />\n              书架\n            </Link>\n          </nav>\n          <div className='flex items-center gap-4'>\n            <div className='relative'>\n              <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400' />\n              <input type='text' placeholder='搜索小说...' className='pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500' />\n            </div>\n            <Link to='/novels/new' className='flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700'>\n              <Plus className='h-4 w-4' />\n              添加\n            </Link>\n          </div>\n        </div>\n      </header>\n      <main className='flex-1'>\n        <Outlet />\n      </main>\n      <footer className='bg-white border-t border-gray-200 py-6'>\n        <div className='max-w-6xl mx-auto px-6 text-center text-sm text-gray-500'>\n          © 2024 小说阅读管理器. All rights reserved.\n        </div>\n      </footer>\n    </div>\n  );\n}",
+      "description": "主布局，包含顶部导航栏（Logo、导航链接、搜索框、添加按钮）和页脚",
+      "pages": ["LibraryDashboard", "NovelList", "NovelDetail", "NovelForm", "NoteForm"]
+    },
+    {
+      "path": "/layouts/ReadingLayout.tsx",
+      "content": "import { Outlet } from 'react-router-dom';\n\nexport default function ReadingLayout() {\n  return (\n    <div className='h-screen flex flex-col overflow-hidden'>\n      <Outlet />\n    </div>\n  );\n}",
+      "description": "阅读布局，极简化的沉浸式布局，无导航干扰",
+      "pages": ["ReadingWorkspace"]
+    }
+  ],
+  "routeStructure": {
+    "MainLayout": ["LibraryDashboard", "NovelList", "NovelDetail", "NovelForm", "NoteForm"],
+    "ReadingLayout": ["ReadingWorkspace"]
+  }
+}

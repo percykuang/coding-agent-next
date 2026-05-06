@@ -1,0 +1,312 @@
+{
+  "files": [
+    {
+      "path": "/App.tsx",
+      "kind": "overwrite",
+      "description": "应用入口组件，包含路由配置",
+      "sourceCorrelation": null,
+      "generatedBy": "appEntry"
+    },
+    {
+      "path": "/index.tsx",
+      "kind": "template",
+      "description": "React应用挂载点",
+      "sourceCorrelation": null,
+      "generatedBy": "template"
+    },
+    {
+      "path": "/styles.css",
+      "kind": "template",
+      "description": "全局样式文件，CSS变量和动画",
+      "sourceCorrelation": null,
+      "generatedBy": "template"
+    },
+    {
+      "path": "/pages/LibraryDashboard.tsx",
+      "kind": "new",
+      "description": "图书馆仪表板页面",
+      "sourceCorrelation": "Page:LibraryDashboard",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/pages/NovelList.tsx",
+      "kind": "new",
+      "description": "小说列表页面",
+      "sourceCorrelation": "Page:NovelList",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/pages/NovelDetail.tsx",
+      "kind": "new",
+      "description": "小说详情页面",
+      "sourceCorrelation": "Page:NovelDetail",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/pages/ReadingWorkspace.tsx",
+      "kind": "new",
+      "description": "阅读工作区页面",
+      "sourceCorrelation": "Page:ReadingWorkspace",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/pages/NovelForm.tsx",
+      "kind": "new",
+      "description": "小说表单页面",
+      "sourceCorrelation": "Page:NovelForm",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/pages/NoteForm.tsx",
+      "kind": "new",
+      "description": "笔记表单页面",
+      "sourceCorrelation": "Page:NoteForm",
+      "generatedBy": "page"
+    },
+    {
+      "path": "/components/SearchInput.tsx",
+      "kind": "new",
+      "description": "搜索输入组件",
+      "sourceCorrelation": "SearchInput",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/AddNovelButton.tsx",
+      "kind": "new",
+      "description": "添加小说按钮组件",
+      "sourceCorrelation": "AddNovelButton",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/NovelTable.tsx",
+      "kind": "new",
+      "description": "小说表格组件",
+      "sourceCorrelation": "NovelTable",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/FilterPanel.tsx",
+      "kind": "new",
+      "description": "筛选面板组件",
+      "sourceCorrelation": "FilterPanel",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/NovelInfoCard.tsx",
+      "kind": "new",
+      "description": "小说信息卡片组件",
+      "sourceCorrelation": "NovelInfoCard",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/ReadingProgressCard.tsx",
+      "kind": "new",
+      "description": "阅读进度卡片组件",
+      "sourceCorrelation": "ReadingProgressCard",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/RecentNotes.tsx",
+      "kind": "new",
+      "description": "最近笔记组件",
+      "sourceCorrelation": "RecentNotes",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/BookmarksList.tsx",
+      "kind": "new",
+      "description": "书签列表组件",
+      "sourceCorrelation": "BookmarksList",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/NovelFormCard.tsx",
+      "kind": "new",
+      "description": "小说表单卡片组件",
+      "sourceCorrelation": "NovelFormCard",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/NoteFormCard.tsx",
+      "kind": "new",
+      "description": "笔记表单卡片组件",
+      "sourceCorrelation": "NoteFormCard",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/ReadingToolbar.tsx",
+      "kind": "new",
+      "description": "阅读工具栏组件",
+      "sourceCorrelation": "ReadingToolbar",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/ProgressSlider.tsx",
+      "kind": "new",
+      "description": "进度滑块组件",
+      "sourceCorrelation": "ProgressSlider",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/ReadingStats.tsx",
+      "kind": "new",
+      "description": "阅读统计组件",
+      "sourceCorrelation": "ReadingStats",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/RecentNovels.tsx",
+      "kind": "new",
+      "description": "最近小说组件",
+      "sourceCorrelation": "RecentNovels",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/components/CategoryOverview.tsx",
+      "kind": "new",
+      "description": "分类概览组件",
+      "sourceCorrelation": "CategoryOverview",
+      "generatedBy": "component"
+    },
+    {
+      "path": "/types/Novel.ts",
+      "kind": "new",
+      "description": "小说实体类型定义",
+      "sourceCorrelation": "Novel",
+      "generatedBy": "typeDefinition"
+    },
+    {
+      "path": "/types/Category.ts",
+      "kind": "new",
+      "description": "小说分类标签类型定义",
+      "sourceCorrelation": "Category",
+      "generatedBy": "typeDefinition"
+    },
+    {
+      "path": "/types/ReadingNote.ts",
+      "kind": "new",
+      "description": "阅读笔记类型定义",
+      "sourceCorrelation": "ReadingNote",
+      "generatedBy": "typeDefinition"
+    },
+    {
+      "path": "/types/ReadingSession.ts",
+      "kind": "new",
+      "description": "阅读会话记录类型定义",
+      "sourceCorrelation": "ReadingSession",
+      "generatedBy": "typeDefinition"
+    },
+    {
+      "path": "/types/Bookmark.ts",
+      "kind": "new",
+      "description": "书签类型定义",
+      "sourceCorrelation": "Bookmark",
+      "generatedBy": "typeDefinition"
+    },
+    {
+      "path": "/data/novels.ts",
+      "kind": "new",
+      "description": "小说模拟数据",
+      "sourceCorrelation": "Novel",
+      "generatedBy": "mockData"
+    },
+    {
+      "path": "/data/categories.ts",
+      "kind": "new",
+      "description": "分类模拟数据",
+      "sourceCorrelation": "Category",
+      "generatedBy": "mockData"
+    },
+    {
+      "path": "/data/readingNotes.ts",
+      "kind": "new",
+      "description": "阅读笔记模拟数据",
+      "sourceCorrelation": "ReadingNote",
+      "generatedBy": "mockData"
+    },
+    {
+      "path": "/data/readingSessions.ts",
+      "kind": "new",
+      "description": "阅读会话模拟数据",
+      "sourceCorrelation": "ReadingSession",
+      "generatedBy": "mockData"
+    },
+    {
+      "path": "/data/bookmarks.ts",
+      "kind": "new",
+      "description": "书签模拟数据",
+      "sourceCorrelation": "Bookmark",
+      "generatedBy": "mockData"
+    },
+    {
+      "path": "/services/novelService.ts",
+      "kind": "new",
+      "description": "小说数据服务",
+      "sourceCorrelation": "Novel",
+      "generatedBy": "service"
+    },
+    {
+      "path": "/services/categoryService.ts",
+      "kind": "new",
+      "description": "分类数据服务",
+      "sourceCorrelation": "Category",
+      "generatedBy": "service"
+    },
+    {
+      "path": "/services/readingNoteService.ts",
+      "kind": "new",
+      "description": "阅读笔记数据服务",
+      "sourceCorrelation": "ReadingNote",
+      "generatedBy": "service"
+    },
+    {
+      "path": "/services/readingSessionService.ts",
+      "kind": "new",
+      "description": "阅读会话数据服务",
+      "sourceCorrelation": "ReadingSession",
+      "generatedBy": "service"
+    },
+    {
+      "path": "/services/bookmarkService.ts",
+      "kind": "new",
+      "description": "书签数据服务",
+      "sourceCorrelation": "Bookmark",
+      "generatedBy": "service"
+    },
+    {
+      "path": "/hooks/useNovels.ts",
+      "kind": "new",
+      "description": "小说数据管理Hook",
+      "sourceCorrelation": "Novel",
+      "generatedBy": "hook"
+    },
+    {
+      "path": "/hooks/useCategories.ts",
+      "kind": "new",
+      "description": "分类数据管理Hook",
+      "sourceCorrelation": "Category",
+      "generatedBy": "hook"
+    },
+    {
+      "path": "/hooks/useReadingNotes.ts",
+      "kind": "new",
+      "description": "阅读笔记数据管理Hook",
+      "sourceCorrelation": "ReadingNote",
+      "generatedBy": "hook"
+    },
+    {
+      "path": "/hooks/useReadingSessions.ts",
+      "kind": "new",
+      "description": "阅读会话数据管理Hook",
+      "sourceCorrelation": "ReadingSession",
+      "generatedBy": "hook"
+    },
+    {
+      "path": "/hooks/useBookmarks.ts",
+      "kind": "new",
+      "description": "书签数据管理Hook",
+      "sourceCorrelation": "Bookmark",
+      "generatedBy": "hook"
+    }
+  ]
+}

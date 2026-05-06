@@ -1,0 +1,7 @@
+{
+  "type": "CREATE",
+  "summary": "创建一个小说阅读和管理的Web应用",
+  "tags": ["小说阅读", "Web应用", "内容管理", "用户界面", "响应式设计"],
+  "complexity": "MEDIUM",
+  "designAnalysis": null
+}

@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "/lib/utils.ts",
+      "code": "import { type ClassValue, clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\n/**\n * 合并 Tailwind CSS 类名\n * 使用 clsx 和 tailwind-merge 确保类名正确合并\n */\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n\n/**\n * 格式化日期为可读字符串\n * @param date - 日期对象或字符串\n * @param options - 格式化选项\n * @returns 格式化后的日期字符串\n */\nexport function formatDate(\n  date: Date | string,\n  options: Intl.DateTimeFormatOptions = {\n    year: 'numeric',\n    month: 'short',\n    day: 'numeric',\n  }\n): string {\n  const dateObj = typeof date === 'string' ? new Date(date) : date;\n  return new Intl.DateTimeFormat('zh-CN', options).format(dateObj);\n}\n\n/**\n * 截断文本并在末尾添加省略号\n * @param text - 要截断的文本\n * @param maxLength - 最大长度\n * @returns 截断后的文本\n */\nexport function truncateText(text: string, maxLength: number): string {\n  if (text.length <= maxLength) return text;\n  return text.slice(0, maxLength) + '...';\n}\n\n/**\n * 生成随机ID\n * @returns 随机生成的ID字符串\n */\nexport function generateId(): string {\n  return Math.random().toString(36).slice(2);\n}\n\n/**\n * 计算阅读进度百分比\n * @param currentPage - 当前页码\n * @param totalPages - 总页数\n * @returns 进度百分比（0-100）\n */\nexport function calculateProgressPercentage(\n  currentPage: number,\n  totalPages: number\n): number {\n  if (totalPages === 0) return 0;\n  return Math.round((currentPage / totalPages) * 100);\n}\n\n/**\n * 格式化阅读时间（分钟转换为小时和分钟）\n * @param minutes - 分钟数\n * @returns 格式化后的时间字符串\n */\nexport function formatReadingTime(minutes: number): string {\n  if (minutes < 60) {\n    return `${minutes}分钟`;\n  }\n  const hours = Math.floor(minutes / 60);\n  const remainingMinutes = minutes % 60;\n  if (remainingMinutes === 0) {\n    return `${hours}小时`;\n  }\n  return `${hours}小时${remainingMinutes}分钟`;\n}",
+      "description": "通用工具库，包含类名合并、日期格式化、文本截断和ID生成函数"
+    }
+  ]
+}

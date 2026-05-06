@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "/services/novelService.ts",
+      "content": "import { Novel } from '../types/Novel';\nimport { MOCK_NOVELS } from '../data/novels';\n\nexport function getNovelById(id: string): Novel | undefined {\n  return MOCK_NOVELS.find(novel => novel.id === id);\n}\n\nexport function getAllNovels(): Novel[] {\n  return MOCK_NOVELS;\n}\n\nexport function getNovelsByStatus(status: string): Novel[] {\n  return MOCK_NOVELS.filter(novel => novel.status === status);\n}\n",
+      "description": "提供小说数据的基础查询功能，包括按ID获取、获取全部列表、按状态筛选"
+    },
+    {
+      "path": "/services/categoryService.ts",
+      "content": "import { Category } from '../types/Category';\nimport { MOCK_CATEGORIES } from '../data/categories';\n\nexport function getCategoryById(id: string): Category | undefined {\n  return MOCK_CATEGORIES.find(category => category.id === id);\n}\n\nexport function getAllCategories(): Category[] {\n  return MOCK_CATEGORIES;\n}\n",
+      "description": "提供小说分类的基础查询功能，包括按ID获取和获取全部分类列表"
+    },
+    {
+      "path": "/services/readingNoteService.ts",
+      "content": "import { ReadingNote } from '../types/ReadingNote';\nimport { MOCK_READING_NOTES } from '../data/readingNotes';\n\nexport function getReadingNoteById(id: string): ReadingNote | undefined {\n  return MOCK_READING_NOTES.find(note => note.id === id);\n}\n\nexport function getAllReadingNotes(): ReadingNote[] {\n  return MOCK_READING_NOTES;\n}\n\nexport function getReadingNotesByNovelId(novelId: string): ReadingNote[] {\n  return MOCK_READING_NOTES.filter(note => note.novelId === novelId);\n}\n",
+      "description": "提供阅读笔记的基础查询功能，包括按ID获取、获取全部列表、按小说ID筛选"
+    },
+    {
+      "path": "/services/readingSessionService.ts",
+      "content": "import { ReadingSession } from '../types/ReadingSession';\nimport { MOCK_READING_SESSIONS } from '../data/readingSessions';\n\nexport function getReadingSessionById(id: string): ReadingSession | undefined {\n  return MOCK_READING_SESSIONS.find(session => session.id === id);\n}\n\nexport function getAllReadingSessions(): ReadingSession[] {\n  return MOCK_READING_SESSIONS;\n}\n\nexport function getReadingSessionsByNovelId(novelId: string): ReadingSession[] {\n  return MOCK_READING_SESSIONS.filter(session => session.novelId === novelId);\n}\n",
+      "description": "提供阅读会话的基础查询功能，包括按ID获取、获取全部列表、按小说ID筛选"
+    },
+    {
+      "path": "/services/bookmarkService.ts",
+      "content": "import { Bookmark } from '../types/Bookmark';\nimport { MOCK_BOOKMARKS } from '../data/bookmarks';\n\nexport function getBookmarkById(id: string): Bookmark | undefined {\n  return MOCK_BOOKMARKS.find(bookmark => bookmark.id === id);\n}\n\nexport function getAllBookmarks(): Bookmark[] {\n  return MOCK_BOOKMARKS;\n}\n\nexport function getBookmarksByNovelId(novelId: string): Bookmark[] {\n  return MOCK_BOOKMARKS.filter(bookmark => bookmark.novelId === novelId);\n}\n",
+      "description": "提供书签的基础查询功能，包括按ID获取、获取全部列表、按小说ID筛选"
+    }
+  ]
+}

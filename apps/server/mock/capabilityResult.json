@@ -1,0 +1,165 @@
+{
+  "pages": [
+    {
+      "pageType": "dashboard",
+      "pageId": "LibraryDashboard",
+      "description": "小说库概览页面，展示所有小说收藏和阅读统计",
+      "supportedGoals": [
+        "提供流畅的小说阅读体验",
+        "允许用户管理个人小说收藏",
+        "记录阅读进度和书签",
+        "提供阅读统计功能"
+      ]
+    },
+    {
+      "pageType": "list",
+      "pageId": "NovelList",
+      "description": "小说列表页面，展示所有收藏的小说，支持筛选和搜索",
+      "supportedGoals": ["允许用户管理个人小说收藏", "支持小说分类和标签"]
+    },
+    {
+      "pageType": "detail",
+      "pageId": "NovelDetail",
+      "description": "小说详情页面，展示小说信息和阅读选项",
+      "supportedGoals": ["提供流畅的小说阅读体验", "允许用户管理个人小说收藏"]
+    },
+    {
+      "pageType": "workspace",
+      "pageId": "ReadingWorkspace",
+      "description": "阅读工作台，提供小说阅读界面和阅读控制",
+      "supportedGoals": ["提供流畅的小说阅读体验", "记录阅读进度和书签", "允许用户添加阅读笔记"]
+    },
+    {
+      "pageType": "form",
+      "pageId": "NovelForm",
+      "description": "小说添加/编辑表单，用于管理小说收藏",
+      "supportedGoals": ["允许用户管理个人小说收藏", "支持小说分类和标签"]
+    },
+    {
+      "pageType": "form",
+      "pageId": "NoteForm",
+      "description": "阅读笔记添加/编辑表单",
+      "supportedGoals": ["允许用户添加阅读笔记"]
+    }
+  ],
+  "behaviors": [
+    {
+      "behaviorId": "browseNovels",
+      "description": "浏览小说收藏列表",
+      "scope": ["NovelList", "LibraryDashboard"],
+      "optional": false
+    },
+    {
+      "behaviorId": "viewNovelDetail",
+      "description": "查看小说详细信息",
+      "scope": ["NovelList", "LibraryDashboard"],
+      "optional": false
+    },
+    {
+      "behaviorId": "startReading",
+      "description": "开始阅读小说",
+      "scope": ["NovelDetail"],
+      "optional": false
+    },
+    {
+      "behaviorId": "addNovel",
+      "description": "添加新小说到收藏",
+      "scope": ["NovelList", "LibraryDashboard"],
+      "optional": false
+    },
+    {
+      "behaviorId": "editNovel",
+      "description": "编辑小说信息",
+      "scope": ["NovelDetail"],
+      "optional": false
+    },
+    {
+      "behaviorId": "deleteNovel",
+      "description": "删除小说收藏",
+      "scope": ["NovelList", "NovelDetail"],
+      "optional": false
+    },
+    {
+      "behaviorId": "saveReadingProgress",
+      "description": "保存阅读进度和书签",
+      "scope": ["ReadingWorkspace"],
+      "optional": false
+    },
+    {
+      "behaviorId": "addNote",
+      "description": "添加阅读笔记",
+      "scope": ["ReadingWorkspace"],
+      "optional": true
+    },
+    {
+      "behaviorId": "searchNovels",
+      "description": "搜索小说",
+      "scope": ["NovelList", "LibraryDashboard"],
+      "optional": false
+    },
+    {
+      "behaviorId": "filterNovels",
+      "description": "按分类或标签筛选小说",
+      "scope": ["NovelList", "LibraryDashboard"],
+      "optional": false
+    },
+    {
+      "behaviorId": "viewStatistics",
+      "description": "查看阅读统计",
+      "scope": ["LibraryDashboard"],
+      "optional": true
+    },
+    {
+      "behaviorId": "updateNote",
+      "description": "编辑或删除阅读笔记",
+      "scope": ["ReadingWorkspace"],
+      "optional": true
+    }
+  ],
+  "dataModels": [
+    {
+      "modelId": "Novel",
+      "description": "小说实体，包含小说基本信息和阅读状态",
+      "complexity": "list+detail",
+      "fields": [
+        "id",
+        "title",
+        "author",
+        "coverImage",
+        "description",
+        "filePath",
+        "totalPages",
+        "currentPage",
+        "lastReadAt",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "progressPercentage"
+      ]
+    },
+    {
+      "modelId": "Category",
+      "description": "小说分类标签",
+      "complexity": "static",
+      "fields": ["id", "name", "color", "description"]
+    },
+    {
+      "modelId": "ReadingNote",
+      "description": "阅读笔记",
+      "complexity": "simple",
+      "fields": ["id", "novelId", "pageNumber", "content", "createdAt", "updatedAt"]
+    },
+    {
+      "modelId": "ReadingSession",
+      "description": "阅读会话记录",
+      "complexity": "simple",
+      "fields": ["id", "novelId", "startPage", "endPage", "duration", "createdAt"]
+    },
+    {
+      "modelId": "Bookmark",
+      "description": "书签",
+      "complexity": "simple",
+      "fields": ["id", "novelId", "pageNumber", "description", "createdAt"]
+    }
+  ]
+}
