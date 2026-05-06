@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://coding.percy.ren
+      url: https://coding.mianshitong.chat
     env:
       IMAGE_TAG: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:

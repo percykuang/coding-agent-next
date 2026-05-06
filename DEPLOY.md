@@ -7,16 +7,16 @@
 - GitHub Actions 通过 SSH 触发服务器上的 `deploy.sh`
 - 服务器只保留部署目录、`.env.prod` 和运行中的容器
 
-当前线上域名为 `coding.percy.ren`，并且与 `percy-site` 共用同一个公共 `edge-proxy`。
+当前线上域名为 `coding.mianshitong.chat`，并且与 `percy-site` 共用同一个公共 `edge-proxy`。
 
 ## 部署架构
 
 ```txt
 DNS
-  coding.percy.ren -> server ip
+  coding.mianshitong.chat -> server ip
 
 edge-proxy
-  coding.percy.ren -> coding-agent-web:3000
+  coding.mianshitong.chat -> coding-agent-web:3000
 
 coding-agent-next-prod
   server    apps/server Express + LangGraph
@@ -88,7 +88,7 @@ IMAGE_NAMESPACE=registry.example.com/percy
 IMAGE_TAG=main-latest
 EDGE_NETWORK=edge
 
-CORS_ORIGIN=https://coding.percy.ren
+CORS_ORIGIN=https://coding.mianshitong.chat
 ENABLE_FIGMA_ROUTE=false
 NEXT_PUBLIC_API_BASE_PATH=/api
 NEXT_PUBLIC_ASSET_ORIGIN=
@@ -135,7 +135,7 @@ NEXT_PUBLIC_ENABLE_FIGMA_ROUTE=false
 
 upstream 规则保持这一条就够了：
 
-- `coding.percy.ren -> coding-agent-web:3000`
+- `coding.mianshitong.chat -> coding-agent-web:3000`
 
 原因是 `apps/web` 已经通过 Next rewrite 把 `/api/:path*` 转发到内部 `server` 服务。
 
@@ -214,7 +214,7 @@ mkdir -p /opt/coding-agent-next/scripts
 内容参考 [`deploy/.env.prod.example`](/Users/percy/Desktop/coding-agent-next/deploy/.env.prod.example)，然后把真实值填进去，尤其是：
 
 - 模型 API Key
-- `CORS_ORIGIN=https://coding.percy.ren`
+- `CORS_ORIGIN=https://coding.mianshitong.chat`
 - `ENABLE_FIGMA_ROUTE=false`
 - `NEXT_PUBLIC_ENABLE_FIGMA_ROUTE=false`
 
@@ -223,7 +223,7 @@ mkdir -p /opt/coding-agent-next/scripts
 把：
 
 ```txt
-coding.percy.ren -> coding-agent-web:3000
+coding.mianshitong.chat -> coding-agent-web:3000
 ```
 
 接到共享 `edge` 网络里的容器别名 `coding-agent-web`。
@@ -241,7 +241,7 @@ coding.percy.ren -> coding-agent-web:3000
 
 ```bash
 docker compose --project-name coding-agent-next-prod --env-file .env.prod -f compose.prod.yml ps
-curl -I https://coding.percy.ren
+curl -I https://coding.mianshitong.chat
 curl http://127.0.0.1:7001/healthz
 ```
 
@@ -287,7 +287,7 @@ bash scripts/rollback.sh <image-tag>
 - `CI` 通过
 - `Deploy` 通过
 - `docker compose ps` 中 `web` 和 `server` 都是 healthy / running
-- `https://coding.percy.ren` 正常访问
+- `https://coding.mianshitong.chat` 正常访问
 - `/api/template/react-ts` 正常返回
 - `/api/chat` 流式返回正常
 - `/api/upload/image` 正常

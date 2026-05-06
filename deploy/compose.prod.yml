@@ -9,7 +9,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 7001
-      CORS_ORIGIN: ${CORS_ORIGIN:-https://coding.percy.ren}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://coding.mianshitong.chat}
       ENABLE_FIGMA_ROUTE: ${ENABLE_FIGMA_ROUTE:-false}
     volumes:
       - uploads_data:/app/storage/uploads
