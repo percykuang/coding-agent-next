@@ -1,0 +1,135 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - CI
+    branches:
+      - main
+    types:
+      - completed
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://coding.percy.ren
+    env:
+      IMAGE_TAG: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Compute image metadata
+        id: vars
+        env:
+          REGISTRY_HOST: ${{ secrets.REGISTRY_HOST }}
+          REGISTRY_NAMESPACE: ${{ secrets.REGISTRY_NAMESPACE }}
+        run: |
+          if [[ -z "$REGISTRY_HOST" || -z "$REGISTRY_NAMESPACE" ]]; then
+            echo "REGISTRY_HOST and REGISTRY_NAMESPACE secrets are required." >&2
+            exit 1
+          fi
+
+          echo "registry_host=${REGISTRY_HOST}" >> "$GITHUB_OUTPUT"
+          echo "image_prefix=${REGISTRY_HOST}/${REGISTRY_NAMESPACE}" >> "$GITHUB_OUTPUT"
+
+      - name: Login to image registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ steps.vars.outputs.registry_host }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: web-runner
+          build-args: |
+            INTERNAL_API_BASE_URL=http://server:7001
+            NEXT_PUBLIC_API_BASE_PATH=/api
+            NEXT_PUBLIC_ASSET_ORIGIN=
+            NEXT_PUBLIC_ENABLE_FIGMA_ROUTE=false
+          push: true
+          tags: |
+            ${{ steps.vars.outputs.image_prefix }}/coding-agent-next-web:${{ env.IMAGE_TAG }}
+            ${{ steps.vars.outputs.image_prefix }}/coding-agent-next-web:main-latest
+          cache-from: type=gha,scope=web
+          cache-to: type=gha,mode=max,scope=web
+
+      - name: Build and push server image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: server-runner
+          push: true
+          tags: |
+            ${{ steps.vars.outputs.image_prefix }}/coding-agent-next-server:${{ env.IMAGE_TAG }}
+            ${{ steps.vars.outputs.image_prefix }}/coding-agent-next-server:main-latest
+          cache-from: type=gha,scope=server
+          cache-to: type=gha,mode=max,scope=server
+
+      - name: Configure SSH
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$PROD_SSH_PORT" "$PROD_SSH_HOST" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Login image registry on server
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          REGISTRY_HOST: ${{ secrets.REGISTRY_HOST }}
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+          REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+        run: |
+          printf '%s\n' "$REGISTRY_PASSWORD" | ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -p "$PROD_SSH_PORT" "$PROD_SSH_USER@$PROD_SSH_HOST" \
+            "docker login '$REGISTRY_HOST' -u '$REGISTRY_USERNAME' --password-stdin"
+
+      - name: Sync deploy files to server
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          PROD_DEPLOY_PATH: ${{ secrets.PROD_DEPLOY_PATH }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -p "$PROD_SSH_PORT" "$PROD_SSH_USER@$PROD_SSH_HOST" "mkdir -p '$PROD_DEPLOY_PATH/scripts'"
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -P "$PROD_SSH_PORT" deploy/compose.prod.yml "$PROD_SSH_USER@$PROD_SSH_HOST:$PROD_DEPLOY_PATH/"
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -P "$PROD_SSH_PORT" deploy/.env.prod.example "$PROD_SSH_USER@$PROD_SSH_HOST:$PROD_DEPLOY_PATH/"
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -P "$PROD_SSH_PORT" deploy/scripts/deploy.sh deploy/scripts/rollback.sh "$PROD_SSH_USER@$PROD_SSH_HOST:$PROD_DEPLOY_PATH/scripts/"
+
+      - name: Trigger remote deploy
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          PROD_DEPLOY_PATH: ${{ secrets.PROD_DEPLOY_PATH }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -p "$PROD_SSH_PORT" "$PROD_SSH_USER@$PROD_SSH_HOST" \
+            "cd '$PROD_DEPLOY_PATH' && IMAGE_NAMESPACE='${{ steps.vars.outputs.image_prefix }}' IMAGE_TAG='${{ env.IMAGE_TAG }}' bash scripts/deploy.sh"
