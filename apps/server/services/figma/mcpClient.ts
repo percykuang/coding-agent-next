@@ -264,7 +264,7 @@ export class FigmaMCPClient {
         // 尝试解析为 JSON
         try {
           context = JSON.parse(contextText);
-        } catch (parseError) {
+        } catch {
           if (contextText.includes("Nothing is selected")) {
             throw new Error(
               "Figma Desktop 未选中任何内容。请在 Figma Desktop 中选中一个 Frame 或 Page",

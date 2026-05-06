@@ -13,7 +13,6 @@
  */
 
 import * as fs from "fs/promises";
-import * as path from "path";
 import { resolveFromAppRoot } from "../../utils/runtimePaths.js";
 
 // ===================== 版本映射表 =====================

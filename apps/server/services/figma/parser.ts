@@ -311,7 +311,7 @@ export function prettyPrintParsedData(data: FigmaParsedData): void {
       console.log(`      Route: ${page.route}`);
       console.log(`      Frames: ${page.frames.length}`);
       if (page.frames.length > 0) {
-        page.frames.forEach((frame, i) => {
+        page.frames.forEach((frame) => {
           console.log(`         - ${frame.name} (${frame.width}x${frame.height})`);
         });
       }

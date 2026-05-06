@@ -13,7 +13,7 @@ import { readTemplatePackageJson } from "../../../../utils/dependencyBuilder.js"
  *
  * 保留节点名 "dependencyNode"，前端步骤 "依赖分析" 不受影响。
  */
-export async function dependencyNode(state: any) {
+export async function dependencyNode(_state: any) {
   console.log("--- DependencyNode (Programmatic) Start ---");
 
   // 1. 读取模板 package.json

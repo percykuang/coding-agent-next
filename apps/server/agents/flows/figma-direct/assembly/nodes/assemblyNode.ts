@@ -56,7 +56,7 @@ export const assemblyNode = async (state: any) => {
     const indexContent = fs.readFileSync(path.join(templateDir, "index.tsx"), "utf-8");
     files["/index.tsx"] = indexContent;
     categories["entry"] = 1;
-  } catch (err) {
+  } catch {
     console.warn("⚠️ [FigmaAssemblyNode] 无法读取模板 index.tsx，使用默认");
     files["/index.tsx"] = getDefaultIndexTsx();
     categories["entry"] = 1;
@@ -67,7 +67,7 @@ export const assemblyNode = async (state: any) => {
   try {
     const pkgContent = fs.readFileSync(path.join(templateDir, "package.json"), "utf-8");
     templatePackageJson = JSON.parse(pkgContent);
-  } catch (err) {
+  } catch {
     console.warn("⚠️ [FigmaAssemblyNode] 无法读取模板 package.json");
   }
 

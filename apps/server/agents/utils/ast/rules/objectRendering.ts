@@ -22,7 +22,6 @@ import {
   isJsxAttributeValue,
   getPosition,
   replaceRanges,
-  walk,
 } from "../parser.js";
 
 const RULE_NAME = "object-rendering";
@@ -37,8 +36,6 @@ export const objectRenderingRule: ASTRule = {
   check(code: string, fileName: string, context: RuleContext): ASTIssue[] {
     const issues: ASTIssue[] = [];
     const sourceFile = parseCode(code, fileName);
-    const { objectFields, types } = context.typeAnalysis;
-
     // 收集所有 JSX 表达式
     const jsxExpressions = findJsxExpressions(sourceFile);
 

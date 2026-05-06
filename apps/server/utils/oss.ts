@@ -105,7 +105,7 @@ export async function uploadImageToOSS(
   const ossPath = `figma-images/${date}/${fileName}.${ext}`;
 
   // 上传到 OSS
-  const result = await client.put(ossPath, buffer, {
+  await client.put(ossPath, buffer, {
     headers: {
       "Content-Type": options?.contentType || `image/${ext === "svg" ? "svg+xml" : ext}`,
       "Cache-Control": "public, max-age=31536000", // 缓存一年

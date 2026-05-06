@@ -1,5 +1,3 @@
-import * as fs from "fs";
-import * as path from "path";
 import { T_Graph } from "../../../../shared/schemas/graphSchema.js";
 import { TypeFileSchema } from "../schemas/typeSchema.js";
 import { TYPE_GENERATION_SYSTEM_PROMPT } from "../prompts/typePrompts.js";

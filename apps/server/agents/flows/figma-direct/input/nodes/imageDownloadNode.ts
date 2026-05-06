@@ -103,7 +103,7 @@ async function downloadImage(url: string): Promise<{
  *
  * 这里采用正则匹配找到 assets.ts 对应的代码块
  */
-function extractAssetsContent(rawCode: string): {
+function _extractAssetsContent(rawCode: string): {
   assetsContent: string;
   startIndex: number;
   endIndex: number;

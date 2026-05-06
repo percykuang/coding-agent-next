@@ -243,7 +243,7 @@ function isDynamicDataSource(
 /**
  * 判断标识符是否是动态变量（来自 hook、props 解构等）
  */
-function isDynamicVariable(identifier: ts.Identifier, sourceFile: ts.SourceFile): boolean {
+function isDynamicVariable(identifier: ts.Identifier, _sourceFile: ts.SourceFile): boolean {
   const name = identifier.text;
 
   // 常见的动态数据变量名
