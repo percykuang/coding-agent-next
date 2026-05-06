@@ -1,0 +1,51 @@
+name: coding-agent-next
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: server-runner
+    env_file:
+      - ./apps/server/.env
+    environment:
+      PORT: ${SERVER_PORT:-7001}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      ENABLE_FIGMA_ROUTE: ${ENABLE_FIGMA_ROUTE:-false}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:7001/healthz').then((res)=>process.exit(res.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "${SERVER_PORT:-7001}:7001"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web-runner
+      args:
+        INTERNAL_API_BASE_URL: ${INTERNAL_API_BASE_URL:-http://server:7001}
+        NEXT_PUBLIC_API_BASE_PATH: ${NEXT_PUBLIC_API_BASE_PATH:-/api}
+        NEXT_PUBLIC_ASSET_ORIGIN: ${NEXT_PUBLIC_ASSET_ORIGIN:-}
+        NEXT_PUBLIC_ENABLE_FIGMA_ROUTE: ${NEXT_PUBLIC_ENABLE_FIGMA_ROUTE:-false}
+    depends_on:
+      server:
+        condition: service_healthy
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      NEXT_PUBLIC_API_BASE_PATH: ${NEXT_PUBLIC_API_BASE_PATH:-/api}
+      NEXT_PUBLIC_ASSET_ORIGIN: ${NEXT_PUBLIC_ASSET_ORIGIN:-}
+      NEXT_PUBLIC_ENABLE_FIGMA_ROUTE: ${NEXT_PUBLIC_ENABLE_FIGMA_ROUTE:-false}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    restart: unless-stopped
