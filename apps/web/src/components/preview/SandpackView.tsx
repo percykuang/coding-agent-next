@@ -169,8 +169,8 @@ function SandpackContent({
   viewMode,
   onCodeChange,
   onEditorStateChange,
-  desiredOpenFiles: _desiredOpenFiles,
-  desiredActiveFile: _desiredActiveFile,
+  desiredOpenFiles,
+  desiredActiveFile,
   workspaceFiles,
   workspaceFolders,
   onCreateWorkspaceFile,
@@ -332,6 +332,8 @@ function SandpackContent({
   // 限制 tab 数量
   const MAX_TABS = 4;
   const prevVisibleFilesRef = useRef<string[]>([]);
+
+  void desiredOpenFiles;
 
   useEffect(() => {
     const visibleFiles = sandpack.visibleFiles;
